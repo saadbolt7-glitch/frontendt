@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../hooks/useTheme';
-import { apiService, HierarchyChartData, DeviceChartData } from '../../services/api';
+import { apiService, HierarchyChartData, DeviceChartData, DevicesResponse } from '../../services/api';
 import { AlarmClock } from 'lucide-react';
 
 interface MetricsCardsProps {
@@ -22,6 +22,11 @@ const MetricsCards: React.FC<MetricsCardsProps> = ({
   const { theme } = useTheme();
   const [currentTime, setCurrentTime] = useState('');
   const [currentDate, setCurrentDate] = useState('');
+  const [deviceStats, setDeviceStats] = useState({
+    totalDevices: 0,
+    onlineDevices: 0,
+    offlineDevices: 0
+  });
   const [flowRateData, setFlowRateData] = useState({
     totalOFR: 0,
     totalWFR: 0,
@@ -57,6 +62,34 @@ const MetricsCards: React.FC<MetricsCardsProps> = ({
   }, []);
 
   useEffect(() => {
+    const loadDeviceStats = async () => {
+      if (!token) return;
+      
+      try {
+        let response;
+        if (selectedHierarchy && selectedHierarchy.id !== selectedHierarchy.name) {
+          // Load devices for specific hierarchy
+          response = await apiService.getDevicesByHierarchy(parseInt(selectedHierarchy.id), token);
+        } else {
+          // Load all devices for company
+          response = await apiService.getAllDevicesEnhanced(token);
+        }
+        
+        if (response.success && response.data) {
+          setDeviceStats({
+            totalDevices: response.data.statistics.totalDevices,
+            onlineDevices: response.data.statistics.onlineDevices,
+            offlineDevices: response.data.statistics.offlineDevices
+          });
+        }
+      } catch (error) {
+        console.error('Failed to load device stats:', error);
+      }
+    };
+
+    loadDeviceStats();
+  }, [token, selectedHierarchy]);
+  useEffect(() => {
     // Calculate flow rate totals from chart data
     if (hierarchyChartData?.chartData && hierarchyChartData.chartData.length > 0) {
       const latestData = hierarchyChartData.chartData[hierarchyChartData.chartData.length - 1];
@@ -87,6 +120,7 @@ const MetricsCards: React.FC<MetricsCardsProps> = ({
       });
     }
   }, [chartData, hierarchyChartData]);
+
   const metrics = [
     {
       icon: '/oildark.png',
@@ -210,6 +244,32 @@ const MetricsCards: React.FC<MetricsCardsProps> = ({
             </span>
           </div>
 
+          <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
+            <div className="text-center">
+              <div className={`text-lg font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                {deviceStats.totalDevices}
+              </div>
+              <div className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                Total
+              </div>
+            </div>
+            <div className="text-center">
+              <div className={`text-lg font-bold text-green-500`}>
+                {deviceStats.onlineDevices}
+              </div>
+              <div className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                Online
+              </div>
+            </div>
+            <div className="text-center">
+              <div className={`text-lg font-bold text-red-500`}>
+                {deviceStats.offlineDevices}
+              </div>
+              <div className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                Offline
+              </div>
+            </div>
+          </div>
           <div
             className={`text-xs ${
               theme === 'dark' ? 'text-[#D0CCD8]' : 'text-[#555758]'

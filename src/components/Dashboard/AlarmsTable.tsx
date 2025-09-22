@@ -176,8 +176,8 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
   const safeAlarms = Array.isArray(filteredAlarms) ? filteredAlarms.filter(Boolean) : [];
 
   return (
-    <div className={`p-6 min-h-full ${theme === 'dark' ? 'bg-[#1E1F2E]' : 'bg-gray-50'}`}>
-      <div className={`rounded-xl h-full shadow-lg ${theme === 'dark' ? 'bg-[#2A2D47]' : 'bg-white border border-gray-200'}`}>
+    <div className={`p-6 min-h-full ${theme === 'dark' ? 'bg-[#121429]' : 'bg-gray-50'}`}>
+      <div className={`rounded-xl h-full shadow-lg ${theme === 'dark' ? 'bg-[#162345]' : 'bg-white border border-gray-200'}`}>
         <div className="p-6">
           {/* Header */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
@@ -226,7 +226,7 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
 
           {/* Statistics Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#3A3D57]' : 'bg-red-50'}`}>
+            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#1a2847]' : 'bg-red-50'}`}>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-red-500 rounded-full" />
                 <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Active</span>
@@ -235,7 +235,7 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
                 {statistics?.active ?? 0}
               </p>
             </div>
-            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#3A3D57]' : 'bg-yellow-50'}`}>
+            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#1a2847]' : 'bg-yellow-50'}`}>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-yellow-500 rounded-full" />
                 <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Acknowledged</span>
@@ -244,7 +244,7 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
                 {statistics?.acknowledged ?? 0}
               </p>
             </div>
-            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#3A3D57]' : 'bg-green-50'}`}>
+            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#1a2847]' : 'bg-green-50'}`}>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-green-500 rounded-full" />
                 <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Resolved</span>
@@ -253,7 +253,7 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
                 {statistics?.resolved ?? 0}
               </p>
             </div>
-            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#3A3D57]' : 'bg-blue-50'}`}>
+            <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-[#1a2847]' : 'bg-blue-50'}`}>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-blue-500 rounded-full" />
                 <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Total</span>
@@ -276,7 +276,7 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   theme === 'dark'
-                    ? 'bg-[#3A3D57] border-gray-600 text-white placeholder-gray-400'
+                    ? 'bg-[#1a2847] border-gray-600 text-white'
                     : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                 }`}
               />
@@ -374,7 +374,7 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
             <table className="w-full">
               <thead>
                 <tr className={`${
-                  theme === 'dark' ? 'bg-[#3A3D57]' : 'bg-gray-50'
+                  theme === 'dark' ? 'bg-[#1a2847]' : 'bg-gray-50'
                 }`}>
                   <th className={`text-left py-4 px-6 font-semibold ${
                     theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
@@ -406,7 +406,7 @@ const AlarmsTable: React.FC<AlarmsTableProps> = ({ selectedHierarchy, selectedDe
                       key={id}
                       className={`border-b transition-colors ${
                         theme === 'dark' 
-                          ? 'border-gray-700 hover:bg-[#3A3D57]' 
+                          ? 'border-gray-700 hover:bg-[#1a2847]' 
                           : 'border-gray-200 hover:bg-gray-50'
                       }`}
                     >
